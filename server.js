@@ -21,15 +21,15 @@ const gifts = require('./routes/gifts')
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 // let URL = 'mongodb+srv://CaptJackSparrow:GcLNtd0BR6xiW11b@educatcluster0.xr1hmp5.mongodb.net/?retryWrites=true&w=majority'
-let URL = 'mongodb://localhost:27017/'
-mongoose.connect(process.env.MONGO_DB_URL,{useNewUrlParser: true, useUnifiedTopology: true })
-mongoose.connection.on('connected', ()=>{
-    console.log("connected to DB");
-});
-mongoose.connection.on('error',(err)=>{
-    // if(err)console.log("error in DB connection"+err);
-    console.log(err)
-})
+// let URL = 'mongodb://localhost:27017/'
+// mongoose.connect(process.env.MONGO_DB_URL,{useNewUrlParser: true, useUnifiedTopology: true })
+// mongoose.connection.on('connected', ()=>{
+//     console.log("connected to DB");
+// });
+// mongoose.connection.on('error',(err)=>{
+//     // if(err)console.log("error in DB connection"+err);
+//     console.log(err)
+// })
 app.use('/api/auth', auth)
 app.use('/api/gifts', gifts)
 app.use('/api/vendor', vendor)
