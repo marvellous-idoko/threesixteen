@@ -4,8 +4,10 @@ const Gift = mongoose.Schema({
     imgUrl:String,
     title:String,
     model:String,
-    category:String,
+    category:Array,
     price:String,
-    prevPrice:String
+    prevPrice:String,
+    productDesc:String,
+    vendorId:String,
 })
 module.exports = mongoose.model('gift', Gift);
