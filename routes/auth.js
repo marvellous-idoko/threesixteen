@@ -24,6 +24,7 @@ router.post("/register", async (req, res) => {
 
 router
   .post("/vendor/registeration", async (req, res) => {
+    console.log(req.body)
     const data = new vendor({
       name: req.body.name,
       country: req.body.country,
