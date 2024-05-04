@@ -1,12 +1,12 @@
 const express = require("express");
 const gift = require("../schema/gift");
 const { requestErrorHandler } = require("../errorHandlers/requestError");
+const orders = require("../schema/orders");
 const router = express.Router();
 module.exports = router;
 
 router
   .post("/upload-gift", async (req, res) => {
-    console.log(req.body);
     const data = new gift({
       imgUrl: req.body.prodImg,
       title: req.body.title,
@@ -37,4 +37,18 @@ router
     } catch (e) {
       requestErrorHandler(res, e);
     }
-  });
+  })
+  .get("/get-orders/:vendorId", async (req, res) => {
+    try {
+      res
+        .status(200)
+        .json({
+          code: 0,
+          msg: await orders
+            .find({ vendorId: req.params.vendorId })
+            .sort({ _id: -1 }),
+        });
+    } catch (e) {
+      requestErrorHandler(res, e);
+    }
+  })

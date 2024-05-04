@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const crypto = require("crypto");
+const { type } = require('os');
 
 const Vendor = mongoose.Schema({
     name:String,
@@ -15,6 +16,11 @@ const Vendor = mongoose.Schema({
     bTwitter:String,
     hash:String,
     salt:String,
+    dateRegistered:{
+        type:Date,
+       default: (new Date()),
+    } ,
+    noOfSales:Number,
 })
 
 Vendor.methods.setPassword = function (password) {

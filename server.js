@@ -20,7 +20,7 @@ const gifts = require('./routes/gifts')
 
 app.use(express.urlencoded({limit: '50mb',extended: true}));
 app.use(express.json({limit: '50mb'}));
-mongoose.connect(process.env.MONGO_DB_URL,{useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_DB_URL)
 mongoose.connection.on('connected', ()=>{
     console.log("connected to DB");
 });
