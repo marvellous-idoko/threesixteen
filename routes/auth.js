@@ -6,17 +6,22 @@ const router = express.Router();
 module.exports = router;
 
 router.post("/register", async (req, res) => {
-  const data = new user({
-    name: req.body.name,
-    id: req.body.id,
-    email: req.body.email,
-    idToken: req.body.idToken,
-    photoUrl: req.body.photoUrl,
-    provider: req.body.provider,
-  });
   try {
-    const dataToSave = await data.save();
-    res.status(200).json(dataToSave);
+    let ud = await user.find({ id: req.body.id });
+    if (ud.length > 0) {
+      res.status(200).json();
+    } else {
+      const data = new user({
+        name: req.body.name,
+        id: req.body.id,
+        email: req.body.email,
+        idToken: req.body.idToken,
+        photoUrl: req.body.photoUrl,
+        provider: req.body.provider,
+      });
+      const dataToSave = await data.save();
+      res.status(200).json(dataToSave);
+    }
   } catch (e) {
     res.status(500).json({ code: 0, msg: err.message });
   }
@@ -24,7 +29,7 @@ router.post("/register", async (req, res) => {
 
 router
   .post("/vendor/registeration", async (req, res) => {
-    console.log(req.body)
+    console.log(req.body);
     const data = new vendor({
       name: req.body.name,
       country: req.body.country,
@@ -50,8 +55,8 @@ router
     try {
       let vendoRes = await vendor.findOne({ email: req.body.email });
       if (vendoRes && vendoRes.validPassword(req.body.password)) {
-        vendoRes['hash'] = '';
-        vendoRes['salt'] = '';
+        vendoRes["hash"] = "";
+        vendoRes["salt"] = "";
         res.status(200).json({ code: 1, msg: vendoRes });
       } else {
         res.status(401).json({ code: 0, msg: "invalid credentials" });

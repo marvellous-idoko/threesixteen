@@ -2,6 +2,7 @@ const express = require("express");
 const gift = require("../schema/gift");
 const { requestErrorHandler } = require("../errorHandlers/requestError");
 const orders = require("../schema/orders");
+const userOrders = require("../schema/userOrders");
 const router = express.Router();
 module.exports = router;
 
@@ -51,4 +52,15 @@ router
     } catch (e) {
       requestErrorHandler(res, e);
     }
+  }).post("/update-order-status", async (req, res)=>{
+    console.log(req.body)
+   let userOrder = await userOrders.findOne({generalGiftId:req.body.generalGiftId})
+   userOrder.status = 'transit'
+    await userOrder.save()
+    let vendorOrder = await orders.find({generalGiftId:req.body.generalGiftId})
+    for (let index = 0; index < vendorOrder.length; index++) {
+       vendorOrder[index].status = 'transit'
+       await vendorOrder[index].save()      
+    }
+    res.status(200).json({code:1, msg:"Successfully Updated Status"})
   })

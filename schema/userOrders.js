@@ -2,14 +2,21 @@ const mongoose = require("mongoose");
 
 const UserOrder = mongoose.Schema({
   gifts: [],
-  status: {
-    type: String,
-    enum: "pending" | "transit" | "delivered" | "completed",
-  },
+  status: String,
+  // {
+  //   enum: {
+  //     values: ["pending", "transit", "delivered", "completed"],
+  //   },
+  // },
   userId: String,
   dateOrdered: {
     type: Date,
     default: new Date(),
   },
+  address: String,
+  phoneNo: String,
+  nameOfReceipient: String,
+  paymentInfo: {},
+  generalGiftId:String
 });
 module.exports = mongoose.model("userOrder", UserOrder);
