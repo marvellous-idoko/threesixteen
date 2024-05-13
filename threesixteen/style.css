@@ -52,7 +52,7 @@ div > h1 {
   align-items: center;
 }
 #firstSection {
-  /* height: 100vh; */
+  height: 100vh;
   background-image: url(../assets/imgs/nnkn.jpg);
 }
 .bg {
