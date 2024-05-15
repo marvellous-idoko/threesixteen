@@ -1,25 +1,21 @@
-let scrollAnimatedElements = document.getElementsByClassName('scrollElements')
+let scrollAnimatedElements = document.getElementsByClassName("scrollElements");
 
-function nj(elem){
-    console.log(elem.getBoundingClientRect().y)
-    if(elem.getBoundingClientRect().y < 450 ){
-        elem.classList.add('animate')
-     }
-
+function nj(elem) {
+  if (elem.getBoundingClientRect().y < 450) {
+    elem.classList.add("animate");
+  }
 }
 
-function searcher(){
-
-    for (let index = 0; index < scrollAnimatedElements.length; index++) {
-        nj(scrollAnimatedElements.item(index) );
-    }
+function searcher() {
+  for (let index = 0; index < scrollAnimatedElements.length; index++) {
+    nj(scrollAnimatedElements.item(index));
+  }
 }
 
 // let scrolling = false;
 
 // window.scroll = () => {
 
-   
 //     console.log('jhg')
 // };
 // function jfj(){
@@ -32,11 +28,32 @@ function searcher(){
 // }
 
 document.addEventListener(
-    'scroll',
-    (event) => {
-        // handle scroll event
-        // scrolling = true;
-        searcher()
-    }, 
-    { passive: true }
+  "scroll",
+  (event) => {
+    // handle scroll event
+    // scrolling = true;
+    searcher();
+  },
+  { passive: true }
 );
+
+// Slider Code
+
+setInterval(() => {
+  displayer();
+}, 10000);
+counter = 0
+function displayer() {
+  let y = document.getElementsByClassName("landingCont");
+  for (let index = 0; index < y.length; index++) {
+    y[index].classList.remove("active");
+  }
+  if (counter == y.length - 1) {
+    y.item(counter).classList.add("active");
+    counter = 0;
+  } else {
+    y.item(counter).classList.add("active");
+    counter++;
+  }
+}
+displayer();

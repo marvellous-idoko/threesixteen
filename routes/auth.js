@@ -30,13 +30,15 @@ router.post("/register", async (req, res) => {
 router
   .post("/vendor/registeration", async (req, res) => {
     console.log(req.body);
+    if(!((await vendor.find({email:req.body.email})).length > 0)){
+      
     const data = new vendor({
       name: req.body.name,
       country: req.body.country,
       email: req.body.email,
       state: req.body.state,
       bName: req.body.bName,
-      bType: req.body.bName,
+      bType: req.body.bType,
       bPhone: req.body.bPhone,
       bCity: req.body.bCity,
       bAddress: req.body.bAddress,
@@ -50,6 +52,10 @@ router
     } catch (e) {
       requestErrorHandler(res, e);
     }
+  }else{
+    res.status(409).json({code:1, msg:"This email already exist, kindly login."})
+  }
+
   })
   .post("/vendor/signin", async (req, res) => {
     try {

@@ -60,7 +60,7 @@ router
     let vendorOrder = await orders.find({generalGiftId:req.body.generalGiftId})
     for (let index = 0; index < vendorOrder.length; index++) {
        vendorOrder[index].status = 'transit'
-       await vendorOrder[index].save()      
+       await vendorOrder[index].save()
     }
     res.status(200).json({code:1, msg:"Successfully Updated Status"})
   })
