@@ -45,10 +45,8 @@ router
   })
   .post("/order-gifts", async (req, res) => {
     let gifts = req.body.gifts;
-    console.log(req.body)
     let orders = [];
     let vendorTracker = [];
-    console.log(gifts)
     try {
       for (let i = 0; i < gifts.length; ) {
         const el = gifts[i];
@@ -82,8 +80,8 @@ router
       let userOrder = new userOrders(req.body)
       userOrder.status = 'pending';
       userOrder.generalGiftId = req.body.generalGiftId
-
-      userOrder.save()
+      await userOrder.save()
+      res.status(200).json({code:1, msg:"Order successfully placed"})
     } catch (error) {
       requestErrorHandler(res, error);
     }
