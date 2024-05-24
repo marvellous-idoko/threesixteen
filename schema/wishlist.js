@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
 
-const Order = mongoose.Schema({
-    products:[],
-    status:string,
-    vendorId:string,
-    dateMade:new Date()
+const Wishlist = mongoose.Schema({
+    gifts:[],
+    dateOrdered: {
+        type: Date,
+        default: new Date(),
+      },
+    userId:String,
+    wishlistName:String,
+    address:String,
+    isPaid:[]
 })
-module.exports = mongoose.model('order', Order);
+module.exports = mongoose.model('wishlist', Wishlist);

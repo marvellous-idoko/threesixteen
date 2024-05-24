@@ -8,7 +8,9 @@ const Order = mongoose.Schema({
         type:Date,
        default: (new Date()),
     },
-    generalGiftId:String
-    
+    generalGiftId:String,
+    paymentInfo: {},
+    paidBy:String
+
 })
 module.exports = mongoose.model('order', Order);
