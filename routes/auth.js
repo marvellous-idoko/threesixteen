@@ -54,7 +54,6 @@ router.post("/register", async (req, res) => {
         <h1 style='font-family: "Roboto", sans-serif;'>Verify your Email address</h1>
         <p style='font-family: "Roboto", sans-serif;'> We're are happy you're here. Let's verify your email address. </p>
         <p style='font-family: "Roboto", sans-serif;'>Click on the link below to verify your email address.</p>
-    
         <a href="https://app.threesixteen.ng/#/vendor-signin"> <button style='font-family: "Roboto", sans-serif; background-color: #6b0e00;
             color: white;
             padding: 10px;
