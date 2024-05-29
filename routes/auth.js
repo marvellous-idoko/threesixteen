@@ -63,7 +63,7 @@ router.post("/register", async (req, res) => {
             padding: 10px 20px;'> Verify Email </button> </a>
         `,
       }
-      sendMail()
+      sendMail(options)
     } catch (e) {
       requestErrorHandler(res, e);
     }
