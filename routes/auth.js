@@ -2,6 +2,7 @@ const express = require("express");
 const user = require("../schema/user");
 const vendor = require("../schema/vendor");
 const { requestErrorHandler } = require("../errorHandlers/requestError");
+const { sendMail } = require("./modules/mailer");
 const router = express.Router();
 module.exports = router;
 
@@ -25,11 +26,7 @@ router.post("/register", async (req, res) => {
   } catch (e) {
     res.status(500).json({ code: 0, msg: err.message });
   }
-});
-
-router
-  .post("/vendor/registeration", async (req, res) => {
-    console.log(req.body);
+}).post("/vendor/registeration", async (req, res) => {
     if(!((await vendor.find({email:req.body.email})).length > 0)){
       
     const data = new vendor({
@@ -49,6 +46,25 @@ router
     try {
       const dataToSave = await data.save();
       res.status(200).json(dataToSave);
+      let options = {
+        to: req.body.email,
+        subject: '👋 Welcome to Threesixteen!',
+        html: `
+        <div style>
+        <h1 style='font-family: "Roboto", sans-serif;'>Verify your Email address</h1>
+        <p style='font-family: "Roboto", sans-serif;'> We're are happy you're here. Let's verify your email address. </p>
+        <p style='font-family: "Roboto", sans-serif;'>Click on the link below to verify your email address.</p>
+    
+        <a href="https://app.threesixteen.ng/#/vendor-signin"> <button style='font-family: "Roboto", sans-serif; background-color: #6b0e00;
+            color: white;
+            padding: 10px;
+            border: 0;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px 20px;'> Verify Email </button> </a>
+        `,
+      }
+      sendMail()
     } catch (e) {
       requestErrorHandler(res, e);
     }

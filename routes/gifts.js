@@ -5,6 +5,7 @@ const order = require("../schema/orders");
 const { requestErrorHandler } = require("../errorHandlers/requestError");
 const userOrders = require("../schema/userOrders");
 const wishlist = require("../schema/wishlist");
+const { mail } = require("./modules/mailer");
 const router = express.Router();
 module.exports = router;
 
@@ -161,6 +162,8 @@ router
     }
     // communicate with vendor
     // send notification to user
+  }).get('/mail',(req, res)=>{
+    mail
   })
 
 async function returnVendorIdFromProd(giftId) {
