@@ -1,7 +1,7 @@
 let scrollAnimatedElements = document.getElementsByClassName("scrollElements");
 
 function nj(elem) {
-  if (elem.getBoundingClientRect().y < 450) {
+  if (elem.getBoundingClientRect().y < 470) {
     elem.classList.add("animate");
   }
 }
@@ -57,3 +57,13 @@ function displayer() {
   }
 }
 displayer();
+
+function movR(elemId, width){
+  document.getElementById(elemId).scrollLeft = parseInt(width)
+}
+function show(){
+  document.getElementById('sidenav').style.display = 'block'
+}
+function hide(){
+  document.getElementById('sidenav').style.display = 'none'
+}

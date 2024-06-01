@@ -36,10 +36,10 @@ div#linkCarrier {
   justify-content: space-evenly;
   flex: 1;
 }
-nav > div > a.links:hover {
+nav div > a.links:hover {
   color: var(--lytBrown);
 }
-nav > div > a.links {
+nav div > a.links {
   color: var(--brown);
   transition: color 0.25s;
 }
@@ -47,24 +47,33 @@ nav figure {
   margin: 10px;
 }
 nav {
-  height: 3em;
+  z-index: 3;
+  position: sticky;
+  top: 0;
+}
+nav > div.smScr {
+  height: 4em;
+  background-color: white;
+}
+nav > div.bigScr {
+  height: 5em;
   background-color: white;
   border: var(--brown) 1px solid;
   max-width: 80%;
   margin: auto;
-  position: sticky;
+  /* position: sticky;
   top:15px;
-  z-index: 3;
+  z-index: 3; */
 }
 a.linksButton > button:hover {
   scale: 1.25;
 }
-  a.linksButton > button {
+a.linksButton > button {
   width: 5em;
   height: 2.5em;
   border: 1px solid var(--brown);
   cursor: pointer;
-  transition: scale .25s;
+  transition: scale 0.25s;
 }
 
 .bdrRad {
@@ -73,8 +82,10 @@ a.linksButton > button:hover {
 div > h1 > span {
   color: var(--lytBrown);
 }
-div > h1 {
+h1 {
   font-size: xxx-large;
+}
+div > h1 {
   margin: 5px 0;
   color: var(--brown);
 }
@@ -91,7 +102,7 @@ div > h1 {
 .bg {
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
 }
 
 body,
@@ -141,7 +152,7 @@ a {
   transition: transform 0.28s;
 }
 
-.whytBtn{
+.whytBtn {
   width: 10em;
   background: transparent;
   color: var(--brown);
@@ -173,6 +184,21 @@ div.landingCont {
   height: inherit;
   align-items: start;
   display: none;
+  position: relative;
+}
+.sliderText {
+  flex: 1;
+  margin-top: 15vh;
+}
+.sliderSm {
+  position: absolute;
+  height: inherit;
+  width: 100vw;
+}
+.shadow {
+  height: inherit;
+  width: inherit;
+  background-image: linear-gradient(180deg, transparent, white);
 }
 .active {
   display: flex !important;
@@ -233,33 +259,6 @@ i.bullet > i {
   display: block;
 }
 
-@media (max-width: 700px) {
-  .smScr {
-    display: block;
-  }
-  .bigScr {
-    display: none;
-  }
-  section {
-    min-height: 50vh;
-  }
-}
-
-@media (max-width: 900px) {
-  .container-fluid {
-    padding: 0 2em;
-  }
-  div.landingCont h1 {
-    font-size: large;
-  }
-  div#game-wrapper {
-    padding: 1rem;
-    max-width: 80vw;
-  }
-  .flex-smScr {
-    flex-direction: column;
-  }
-}
 header.flex {
   justify-content: start;
   gap: 20px;
@@ -312,8 +311,8 @@ div.processBox > i {
   padding-top: 5em 0;
 }
 .slidImgs {
-  min-height: 40vh;
-  min-width: 30vw;
+  min-height: 20em;
+  min-width: 20em;
   display: flex;
   justify-content: center;
 }
@@ -338,8 +337,8 @@ div.processBox > i {
   outline: none;
   border: 0;
   cursor: pointer;
-  margin-left: 30px;
   background-color: black;
+  margin-left: -40px;
 }
 .customerResponse {
   min-width: 20vw;
@@ -368,7 +367,7 @@ div.processBox > i {
 #kk {
   overflow: scroll;
   gap: 30px;
-  height: calc(55vh);
+  height: 40vh;
 }
 ::-webkit-scrollbar {
   display: none;
@@ -409,4 +408,136 @@ footer > div ul > li > a:hover {
 footer div > figure {
   background-image: none;
 }
+p#wel {
+  max-width: 40vw;
+  text-align: center;
+}
 
+.sliderCarr {
+  padding: 2em 0;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+#Mcateg > button:hover {
+  transform: scale(1.3);
+}
+#Mcateg {
+  position: relative;
+}
+#Mcateg > button:first-of-type {
+  z-index: 3;
+}
+#Mcateg > button {
+  position: absolute;
+}
+
+#categories {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  position: relative;
+}
+#categories::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+@media (max-width: 700px) {
+  .smScr {
+    display: block;
+  }
+  .bigScr {
+    display: none;
+  }
+  section {
+    min-height: 50vh;
+  }
+}
+#fooota {
+  gap: 20px;
+}
+#sidenav {
+  display: none;
+  width: 50vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  transition: all 0.5s;
+  z-index: 5;
+  background-color: white;
+  padding: 0 5px;
+}
+#sidenav > div {
+  width: inherit;
+  height: inherit;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.sidenavLinks span {
+  color: var(--brown);
+  font-size: larger;
+}
+.sidenavLinks {
+  justify-content: start;
+  gap: 10px;
+  width: 100%;
+}
+.sidnavBtns {
+  width: 80%;
+  height: 3em;
+  border: 0;
+}
+#hideBtn {
+  float: right;
+  color: red;
+  background-color: #ff000042;
+  border: 0;
+  scale: 1.5;
+  font-size: large;
+}
+@media (max-width: 900px) {
+  .container-fluid {
+    padding: 0 2em;
+  }
+  div.landingCont {
+    align-items: end;
+  }
+  h1 {
+    font-size: xx-large;
+  }
+  div.landingCont h1 {
+    font-size: xx-large;
+  }
+  div#game-wrapper {
+    padding: 1rem;
+    max-width: 80vw;
+  }
+  .flex-smScr {
+    flex-direction: column;
+  }
+  #firstSection {
+    height: 70vh;
+    padding: 0;
+  }
+  .sliderText {
+    padding: 0 2em;
+  }
+  p#wel {
+    max-width: 100vw !important;
+  }
+  div.processBox > i > img {
+    width: 25px;
+  }
+  .sliderCarr {
+    padding-left: 23em;
+  }
+
+  .customerResponse {
+    min-width: 10em;
+  }
+  #kk {
+    padding-left: 20em;
+  }
+  #foota {
+    flex-direction: column;
+    align-items: start;
+  }
+}
