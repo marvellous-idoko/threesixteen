@@ -63,7 +63,10 @@ function movR(elemId, width){
 }
 function show(){
   document.getElementById('sidenav').style.display = 'block'
+  document.getElementById('sidenav').style.opacity = '1'
 }
 function hide(){
   document.getElementById('sidenav').style.display = 'none'
+  document.getElementById('sidenav').style.opacity = '0'
+
 }

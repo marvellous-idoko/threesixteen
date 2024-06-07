@@ -198,7 +198,7 @@ div.landingCont {
 .shadow {
   height: inherit;
   width: inherit;
-  background-image: linear-gradient(180deg, transparent, white);
+  background-image: linear-gradient(180deg, transparent, var(--brown));
 }
 .active {
   display: flex !important;
@@ -464,6 +464,7 @@ p#wel {
   z-index: 5;
   background-color: white;
   padding: 0 5px;
+  opacity: 0;
 }
 #sidenav > div {
   width: inherit;
@@ -488,10 +489,13 @@ p#wel {
 #hideBtn {
   float: right;
   color: red;
-  background-color: #ff000042;
-  border: 0;
-  scale: 1.5;
-  font-size: large;
+  background-color: #ff000017;
+  scale: 1.2;
+  font-size: medium;
+  height: 30px;
+  width: 30px;
+  border: 1px red solid;
+  border-radius: 50%;
 }
 @media (max-width: 900px) {
   .container-fluid {
@@ -517,8 +521,13 @@ p#wel {
     height: 70vh;
     padding: 0;
   }
+  .sliderText h1{
+    color: white;
+  }
+
   .sliderText {
-    padding: 0 2em;
+    padding: 2em;
+        color: white;
   }
   p#wel {
     max-width: 100vw !important;
@@ -539,5 +548,14 @@ p#wel {
   #foota {
     flex-direction: column;
     align-items: start;
+  }
+  .sliderText .whytBtn{
+    border: 1px white solid;
+    background-color: transparent!important;
+    color: white!important;
+  }
+  .sliderText .bigBtn{
+    background-color: white;
+    color: var(--brown);
   }
 }
