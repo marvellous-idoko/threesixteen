@@ -49,6 +49,7 @@ router
     let gifts = req.body.gifts;
     let orders = [];
     let vendorTracker = [];
+    let savingVendorTracker = [];
     try {
       for (let i = 0; i < gifts.length; ) {
         const el = gifts[i];
@@ -57,10 +58,10 @@ router
         } else {
           let order = {};
           order["vendorId"] = el.vendorId;
-          order["products"] = [{ giftId: el["_id"], amount: el["amount"] }];
+          order["products"] = [];
           order["status"] = "pending";
           for (let j = 0; j < gifts.length; j++) {
-            if (order["vendorId"] == gifts[j]["vendorId"]) {
+            if (order["vendorId"] == gifts[j]["vendorId"] && !(order["products"].includes(gifts[j]["_id"]))) {
               order["products"].push({
                 giftId: gifts[j]["_id"],
                 amount: gifts[j]["amount"],
@@ -72,13 +73,21 @@ router
           i++;
         }
       }
-      console.log(vendorTracker);
 
       for (let k = 0; k < orders.length; k++) {
-        const data = new order(orders[k]);
-        data.generalGiftId = req.body.generalGiftId;
-        await data.save();
+        if (!savingVendorTracker.includes(orders[k].vendorId)) {
+          const data = new order(orders[k]);
+          data.generalGiftId = req.body.generalGiftId;
+          await data.save();
+          savingVendorTracker.push(orders[k].vendorId);
+        }
       }
+      console.log(savingVendorTracker);
+
+
+
+
+      // save to user orders
       let userOrder = new userOrders(req.body);
       userOrder.status = "pending";
       userOrder.generalGiftId = req.body.generalGiftId;
@@ -98,12 +107,10 @@ router
   .get("/user-orders/:id", async (req, res) => {
     try {
       console.log(await userOrders.find({ userId: req.params.id }));
-      res
-        .status(200)
-        .json({
-          code: 1,
-          msg: await userOrders.find({ userId: req.params.id }),
-        });
+      res.status(200).json({
+        code: 1,
+        msg: await userOrders.find({ userId: req.params.id }),
+      });
     } catch (error) {
       requestErrorHandler(res, error);
     }
@@ -135,36 +142,36 @@ router
     } catch (error) {
       requestErrorHandler(res, error);
     }
-  }).post('/pay-wishlist', async(req, res)=>{
+  })
+  .post("/pay-wishlist", async (req, res) => {
     // update wishlist
-    try {  
-    let wishlis = await wishlist.findById(req.body.id)
-    let orde = new order()
-     for (let index = 0; index < wishlis.gifts.length; index++) {
-      if(wishlis.gifts[index]['_id'] == req.body.wish._id ){
-        wishlis.isPaid.push(wishlis.gifts[index]['_id'])
-        orde.products = [wishlis.gifts[index]]
-        orde.status = 'pending'
-        orde.vendorId = wishlis.gifts[index]['vendorId']
-        orde.generalGiftId = Math.random() * 1000000000 
-        orde.paymentInfo = req.body.paymentInfo
-        orde.paidBy = req.body.paidBy        
-        break;
+    try {
+      let wishlis = await wishlist.findById(req.body.id);
+      let orde = new order();
+      for (let index = 0; index < wishlis.gifts.length; index++) {
+        if (wishlis.gifts[index]["_id"] == req.body.wish._id) {
+          wishlis.isPaid.push(wishlis.gifts[index]["_id"]);
+          orde.products = [wishlis.gifts[index]];
+          orde.status = "pending";
+          orde.vendorId = wishlis.gifts[index]["vendorId"];
+          orde.generalGiftId = Math.random() * 1000000000;
+          orde.paymentInfo = req.body.paymentInfo;
+          orde.paidBy = req.body.paidBy;
+          break;
+        }
       }
-     }
-     await wishlis.save()
-     await orde.save()
-     res
-        .status(200)
-        .json({ code:1, msg:'Successfully paid'})
+      await wishlis.save();
+      await orde.save();
+      res.status(200).json({ code: 1, msg: "Successfully paid" });
     } catch (error) {
       requestErrorHandler(res, error);
     }
     // communicate with vendor
     // send notification to user
-  }).get('/mail',(req, res)=>{
-    mail
   })
+  .get("/mail", (req, res) => {
+    mail;
+  });
 
 async function returnVendorIdFromProd(giftId) {
   return (await gift.findById(giftId)).vendorId;
