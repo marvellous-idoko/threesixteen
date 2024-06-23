@@ -103,9 +103,7 @@ router
             altRecipientNumber: "+234 814 562 1249",
           }
           addDelivery(pickup, [drop], req.body.userId)
-            .then((response) => response.text())
-            .then((result) => console.log(result))
-            .catch((error) => console.error(error));
+            
           // console.log(await addDelivery(pickup, [drop], wishlis.userId))
           savingVendorTracker.push(orders[k].vendorId);
         }

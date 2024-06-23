@@ -1,5 +1,4 @@
-'use strict';
-
+"use strict";
 
 // {
 //     "orderType": "FULFILLMENT",
@@ -24,27 +23,29 @@
 //   ]
 // }
 const headers = {
-    "Content-Type": "application/json",
-    "x-sendstack-source":"control.sendstack",
-    // app_id:"9707406",
-    app_id:process.env.SENDSTACK_APP_ID,
-    app_secret:process.env.SENDSTACK_APP_SECRET,
-    // app_secret:"H6YKXGSNJSK1JATL",
-  }
+  "Content-Type": "application/json",
+  "x-sendstack-source": "control.sendstack",
+  // app_id:"9707406",
+  app_id: process.env.SENDSTACK_APP_ID,
+  app_secret: process.env.SENDSTACK_APP_SECRET,
+  // app_secret:"H6YKXGSNJSK1JATL",
+};
 function addDelivery(pickup, drops, customerId) {
-   let options = {"method":"POST",headers, redirect: "follow"}
-   
-   let body = {
-        "orderType": "FULFILLMENT",
-        "customerId": customerId,
-        pickup,
-        drops
-    }
-    options.body = JSON.stringify(body)
-    return fetch(process.env.SENDSTACK_URL + "deliveries",options)
-     
+  let options = { method: "POST", headers, redirect: "follow" };
+
+  let body = {
+    orderType: "FULFILLMENT",
+    customerId: customerId,
+    pickup,
+    drops,
+  };
+  options.body = JSON.stringify(body);
+  fetch(process.env.SENDSTACK_URL + "deliveries", options)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.error(error));
 }
 
 module.exports = {
-    addDelivery,
-}
+  addDelivery,
+};
