@@ -10,7 +10,7 @@ const Order = mongoose.Schema({
     },
     generalGiftId:String,
     paymentInfo: {},
-    paidBy:String
-
+    paidBy:String,
+    dateToBeDelivered:Date
 })
 module.exports = mongoose.model('order', Order);

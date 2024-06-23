@@ -64,7 +64,6 @@ router
             padding: 10px 20px;'> Verify Email </button> </a>
         `,
         };
-
         sendMail(options);
       } catch (e) {
         requestErrorHandler(res, e);
@@ -90,7 +89,6 @@ router
     }
   })
   .post("/forgot-password", async (req, res) => {
-    console.log(req.body)
     let userOptions = {
       to: req.body.email,
       subject: "Password Reset Request: Threesixteen!",

@@ -9,6 +9,7 @@ const Wishlist = mongoose.Schema({
     userId:String,
     wishlistName:String,
     address:String,
-    isPaid:[]
+    isPaid:[],
+    dateToBeDelivered:Date
 })
 module.exports = mongoose.model('wishlist', Wishlist);
