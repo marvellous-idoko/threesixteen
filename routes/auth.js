@@ -51,7 +51,6 @@ router
           to: req.body.email,
           subject: "👋 Welcome to Threesixteen!",
           html: `
-        <div style>
         <h1 style='font-family: "Roboto", sans-serif;'>Verify your Email address</h1>
         <p style='font-family: "Roboto", sans-serif;'> We're are happy you're here. Let's verify your email address. </p>
         <p style='font-family: "Roboto", sans-serif;'>Click on the link below to verify your email address.</p>
@@ -101,7 +100,6 @@ router
       let usert = await vendor.findOne({ email: req.body.email });
       if (usert) {
         vendorOptions.html = `
-        <div style>
         <h1 style='font-family: "Roboto", sans-serif;'>Password Reset Request</h1>
         <p style='font-family: "Roboto", sans-serif;'> We received a password request from your account at Threesixteen.</p>
         <p style='font-family: "Roboto", sans-serif;'> Tap the button below to change password.</p>
@@ -120,7 +118,6 @@ router
         usert = await user.findOne({ email: req.body.email });
         if (usert) {
           userOptions.html = `
-          <div style>
           <h1 style='font-family: "Roboto", sans-serif;'>Password Reset Request</h1>
           <p style='font-family: "Roboto", sans-serif;'> We received a password request from your account at Threesixteen.</p>
           <p style='font-family: "Roboto", sans-serif;'> Tap the button below to change password.</p>

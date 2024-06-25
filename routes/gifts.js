@@ -8,6 +8,8 @@ const wishlist = require("../schema/wishlist");
 const { mail } = require("./modules/mailer");
 const vendor = require("../schema/vendor");
 const { addDelivery } = require("./modules/delivery");
+const { sendMail } = require("./modules/mailer");
+
 const router = express.Router();
 module.exports = router;
 
@@ -103,12 +105,26 @@ router
             altRecipientNumber: "+234 814 562 1249",
           }
           addDelivery(pickup, [drop], req.body.userId)
-            
+      let optione = {
+        to: vdr.email,
+        subject: "🤗New Order | Threesixteen",
+        html: `
+      <h1 style='font-family: "Roboto", sans-serif;'> You have a new order</h1>
+      <p style='font-family: "Roboto", sans-serif;'>Click on the link below to view</p>
+      <a href="https://app.threesixteen.ng/#/vendor-signin"> <button style='font-family: "Roboto", sans-serif; background-color: #6b0e00;
+          color: white;
+          padding: 10px;
+          border: 0;
+          border-radius: 5px;
+          cursor: pointer;
+          padding: 10px 20px;'> Sign in </button> </a>
+      `,
+      };
+      sendMail(optione);
           // console.log(await addDelivery(pickup, [drop], wishlis.userId))
           savingVendorTracker.push(orders[k].vendorId);
         }
       }
-      console.log(savingVendorTracker);
 
       // save to user orders
       let userOrder = new userOrders(req.body);
@@ -206,14 +222,14 @@ router
         recipientNumber: userw.phone,
         altRecipientNumber: "+234 814 562 1249",
       };
-      console.log(await addDelivery(pickup, [drop], wishlis.userId));
+       addDelivery(pickup, [drop], wishlis.userId);
       // communicate with vendor
       let vendo = vendor.findById(orde.vendorId);
       let optione = {
         to: vendo.email,
         subject: "🤗New Order | Threesixteen",
         html: `
-      <div style>
+      
       <h1 style='font-family: "Roboto", sans-serif;'> You have a new order</h1>
       <p style='font-family: "Roboto", sans-serif;'>Click on the link below to view</p>
       <a href="https://app.threesixteen.ng/#/vendor-signin"> <button style='font-family: "Roboto", sans-serif; background-color: #6b0e00;
@@ -232,7 +248,7 @@ router
         to: userw.email,
         subject: "🤗 Hurray! Wish fulfilled 🎉",
         html: `
-    <div style>
+    
     <h1 style='font-family: "Roboto", sans-serif;'> ${req.body.paidBy} just fulfiled your wish</h1>
     <p style='font-family: "Roboto", sans-serif;'>${req.body.note}</p>
     <p style='font-family: "Roboto", sans-serif;'>Click on the link below to view wishlist</p>
